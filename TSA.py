@@ -108,7 +108,14 @@ def test_model(model, test_data):
     f1 = f1_score(test_data['label'], np.round(y_pred))
     print(f"Precision: {precision:.2f}\nRecall: {recall:.2f}\nF1 Score: {f1:.2f}")
 
-model=TweetSimilarityModel()
+# Load pre-trained transformer model (e.g., BERT)
+transformer_model = BertModel.from_pretrained('bert-base-uncased')
+
+# Determine hidden size
+hidden_size = transformer_model.config.hidden_size
+
+# Instantiate TweetSimilarityModel with the transformer model and hidden size
+model = TweetSimilarityModel(transformer_model, hidden_size)
 
 # hyperparameters
 EPOCHS = 5
